@@ -1,6 +1,6 @@
 ofdispatcher/dispatcher/migrations/
-ofdispatcher/ofdispatcher/db.sqlite3
 ofdispatcher/ofdispatcher/settings.py
+ofdispatcher/db.sqlite3
 
 
 # Byte-compiled / optimized / DLL files
