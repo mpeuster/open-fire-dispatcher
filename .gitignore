@@ -1,3 +1,8 @@
+ofdispatcher/dispatcher/migrations/
+ofdispatcher db.sqlite3
+ofdispatcher/settings.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
