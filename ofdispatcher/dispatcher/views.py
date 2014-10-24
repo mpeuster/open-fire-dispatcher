@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
-def home(request):
-    return render(request, 'dispatcher/home.html', None)
+@login_required
+def overview(request):
+    return render(request, 'dispatcher/overview.html', None)

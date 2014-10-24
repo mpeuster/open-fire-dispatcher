@@ -17,6 +17,7 @@
 </head>
 
 <body>
+	{% block body %}		
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -33,7 +34,8 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">		
 
-					<li class="active"><a href="#">Alarmierungen</a></li>
+					<li class="active"><a href="#">Übersicht</a></li>
+					<li><a href="#">Alarmierungen</a></li>
 					<li><a href="#">Feuerwehr</a></li>
 					<li><a href="#">Schleifen</a></li>
 					<li><a href="#">Kontakte</a></li>
@@ -49,7 +51,7 @@
 				-->	
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<button type="button" class="btn btn-danger navbar-btn">Log out</button>
+				<a type="button" class="btn btn-danger navbar-btn" href="{% url 'django.contrib.auth.views.logout' %}">Abmelden &nbsp;<span class="glyphicon glyphicon-off"></a>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
@@ -88,6 +90,8 @@
 
 
 <footer class="footer text-center"><span class="glyphicon glyphicon-copyright-mark"></span> 2014 by Manuel Peuster (manuel [at] peuster.de)</footer>
+
+{% endblock %}
 
 </body>
 </html>
