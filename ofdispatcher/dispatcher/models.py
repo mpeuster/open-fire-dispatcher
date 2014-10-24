@@ -10,7 +10,8 @@ class Department(models.Model):
     sms_gateway_driver = models.IntegerField(default=0)
     sms_gateway_sender = models.IntegerField(default=112112112)
     sms_gateway_api_key = models.CharField(max_length=256, blank=True)
-    comment = models.TextField(blank=True)
+    comment = models.TextField(blank=True)  # hidden comment
+    news = models.TextField(blank=True)  # public notification
 
     def __unicode__(self):
         return self.name
