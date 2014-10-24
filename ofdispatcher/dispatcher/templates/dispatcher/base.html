@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>OpenFire Dispatcher{% block title %}{% endblock %}</title>
+	<title>OpenFire Dispatcher</title>
 	
 	{% load staticfiles %}
 	<!-- Bootstrap -->
@@ -34,11 +34,11 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">		
 
-					<li class="active"><a href="#">Übersicht</a></li>
-					<li><a href="#">Alarmierungen</a></li>
-					<li><a href="#">Feuerwehr</a></li>
-					<li><a href="#">Schleifen</a></li>
-					<li><a href="#">Kontakte</a></li>
+					<li><a href="{% url 'overview' %}">Übersicht</a></li>
+					<li><a href="{% url 'alarms' %}">Alarmierungen</a></li>
+					<li><a href="{% url 'department' %}">Feuerwehr</a></li>
+					<li><a href="{% url 'loops' %}">Schleifen</a></li>
+					<li><a href="{% url 'contacts' %}">Kontakte</a></li>
 					<!--
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Select UE <span class="caret"></span></a>
@@ -59,6 +59,7 @@
 
 
 <div class="row">
+	<!--
 	<div class="col-md-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -66,18 +67,15 @@
 			</div>
   			<div class="panel-body">
 				{% block sidebar %}
-				<ul class="nav nav-stacked">
-					<li><a href="#">Übersicht</a></li>
-					<li><a href="#">Manuell Alarmieren</a></li>
-				</ul>
 				{% endblock %}
 			</div>
 		</div>
 	</div>
-	<div class="col-md-9">
+	-->
+	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Content</h3>
+				<h3 class="panel-title">{% block title %}{% endblock %}</h3>
 			</div>
 			<div class="panel-body no-padding" id="map-panel">
 				{% block content %}Content{% endblock %}
@@ -87,11 +85,11 @@
 	
 </div>
 
-
+{% endblock %}
 
 <footer class="footer text-center"><span class="glyphicon glyphicon-copyright-mark"></span> 2014 by Manuel Peuster (manuel [at] peuster.de)</footer>
 
-{% endblock %}
+
 
 </body>
 </html>
