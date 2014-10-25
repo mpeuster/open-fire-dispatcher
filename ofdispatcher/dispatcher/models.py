@@ -46,7 +46,7 @@ class AlarmLoop(models.Model):
     department = models.ForeignKey(Department)
     contacts = models.ManyToManyField(Contact, blank=True)
     loop = models.CharField(max_length=5, default="00000")
-    name = models.CharField(max_length=128, default="Schleife", unique=True)
+    name = models.CharField(max_length=128, default="Schleife")
     alarm_text = models.CharField(max_length=140,
                                   default="Feuerwehr Alarmierung!")
     alarm_text_long = models.TextField(blank=True)
