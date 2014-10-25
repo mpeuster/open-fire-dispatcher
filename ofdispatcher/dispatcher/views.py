@@ -1,6 +1,7 @@
 import logging
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from dispatcher.models import AlarmLoop
 
 
 logger = logging.getLogger(__name__)
@@ -23,8 +24,10 @@ def department(request):
 
 @login_required
 def loops(request):
-    logger.debug("TEST")
-    return render(request, 'dispatcher/loops.html', None)
+    department = request.user.departmentmanager.department
+    alarm_loop_list = AlarmLoop.objects.filter(department=department)
+    context = {"alarm_loops": alarm_loop_list}
+    return render(request, 'dispatcher/loops.html', context)
 
 
 @login_required
