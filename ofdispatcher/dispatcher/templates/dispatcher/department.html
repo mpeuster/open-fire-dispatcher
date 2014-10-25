@@ -9,5 +9,24 @@
 {% endblock %}
 
 {% block content %}
-Content.
+<h3>FF Nieder-Werbe<br>
+<small>Stadt Waldeck</small></h3>
+
+<div class="row">
+<div class="col-md-6">
+<form role="form">
+  <div class="form-group">
+    <label for="sms_from">SMS Absender</label>
+    <input type="text" class="form-control" id="sms_from" placeholder="Nummer">
+  </div>
+  <div class="form-group">
+    <label for="sms_token">SMS Gateway Token</label>
+    <input type="text" class="form-control" id="sms_token" placeholder="Token">
+    <p>Zugangsschlüssel für SMS Gateway. Bitte genau prüfen. Sollte der Schlüssel falsch sein, werden keine SMS versendet.</p>
+  </div>
+  <button type="submit" class="btn btn-success">Speichern</button>
+</form>
+</div>
+</div>
+
 {% endblock %}

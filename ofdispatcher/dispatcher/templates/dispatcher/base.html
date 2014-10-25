@@ -34,11 +34,11 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">		
 
-					<li><a href="{% url 'overview' %}">Übersicht</a></li>
-					<li><a href="{% url 'alarms' %}">Alarmierungen</a></li>
-					<li><a href="{% url 'department' %}">Feuerwehr</a></li>
-					<li><a href="{% url 'loops' %}">Schleifen</a></li>
-					<li><a href="{% url 'contacts' %}">Kontakte</a></li>
+					<li><a href="{% url 'dispatcher:overview' %}">Übersicht</a></li>
+					<!--<li><a href="{% url 'dispatcher:department' %}">Feuerwehr</a></li>-->
+					<li><a href="{% url 'dispatcher:loops' %}">Schleifen</a></li>
+					<li><a href="{% url 'dispatcher:contacts' %}">Einsatzkräfte</a></li>
+					<li><a href="{% url 'dispatcher:alarms' %}">Alarmierungen</a></li>
 					<!--
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Select UE <span class="caret"></span></a>
@@ -88,7 +88,7 @@
 
 {% endblock %}
 
-<footer class="footer text-center"><span class="glyphicon glyphicon-copyright-mark"></span> 2014 by Manuel Peuster (manuel [at] peuster.de)</footer>
+<footer class="footer text-center"> <small>Version: 0.1 (beta)</small><br><span class="glyphicon glyphicon-copyright-mark"></span> 2014 by Manuel Peuster (<a href="mailto:openfire@peuster.de">openfire@peuster.de</a>)</footer>
 
 
 

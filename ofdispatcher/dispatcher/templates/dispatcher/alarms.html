@@ -2,12 +2,28 @@
 
 {% block title %}Alarmierungen{% endblock %}
 
-{% block sidebar %}
-<ul class="nav nav-stacked">
-	<li><a href="#">Alarmierungen</a></li>
-</ul>
-{% endblock %}
-
 {% block content %}
-Content.
+<div class="row">
+	<div class="col-md-7">
+		
+		<div class="row sub-content">
+		</div>
+		<div class="row sub-content">
+			<table  class="table table-striped">
+				<tr>
+					<th>Datum</th>
+					<th>Schleife</th>
+					<th>Text</th>
+				</tr>
+				<tr>
+					<td>10.11.14 16:34</td>
+					<td><code>51372</code></td>
+					<td>Feuerwehr Einsatz. Schleife 51234. (10.11.14 16:34)</td>
+				</tr>
+					
+			</table>
+		</div>
+	
+	</div>
+</div>
 {% endblock %}

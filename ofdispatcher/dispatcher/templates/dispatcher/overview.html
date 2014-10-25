@@ -2,33 +2,60 @@
 
 {% block title %}Übersicht{% endblock %}
 
-{% block sidebar %}
-<ul class="nav nav-stacked">
-	<li><a href="#">Übersicht</a></li>
-	<li><a href="#">Manuell Alarmieren</a></li>
-</ul>
-{% endblock %}
-
 {% block content %}
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-7">
 
-	<h4 class="text-muted text-uppercase">Feuerwehr</h4>
-	<h3>FF Nieder-Werbe<br>
-	<small>Stadt Waldeck</small></h3>
-	<h4 class="text-muted text-uppercase conent_headline">Administratoren</h4>
-	Heinz Mustermann <a href="">(musterman@mail.de)</a><br>
-	Heinz Mustermann <a href="">(musterman@mail.de)</a><br>
-	Heinz Mustermann <a href="">(musterman@mail.de)</a><br>
-	<h4 class="text-muted text-uppercase conent_headline">News</h4>
-	Keine News vorhanden.
-	<h4 class="text-muted text-uppercase conent_headline">Kontakt</h4>
-	Bei möglichen Fehlern oder sonstigen Fragen, bitte per E-Mail an <a href="mailto:openfire@peuster.de">openfire@peuster.de</a> wenden. Die SMS Alarmierung ersetzt keineswegs die offizielle Alarmierung per FME oder Sirene. Fehlarlarme sind nicht ausgeschlossen.
+		<h4 class="text-muted text-uppercase conent_headline">Feuerwehr</h4>
+		<div class="sub-content">
+			<h3>FF Nieder-Werbe<br>
+			<small>Stadt Waldeck</small></h3>
+			<p>Schleifen: <strong>2</strong></p>
+			<p>Einsatzkräfte: <strong>31</strong></p>
+		</div>
+		<hr>
+		<h4 class="text-muted text-uppercase conent_headline">Administratoren</h4>
+		<div class="sub-content">
+			Heinz Mustermann <a href="">(musterman@mail.de)</a><br>
+			Heinz Mustermann <a href="">(musterman@mail.de)</a><br>
+			Heinz Mustermann <a href="">(musterman@mail.de)</a><br>
+		</div>
+		<hr>
+		<h4 class="text-muted text-uppercase conent_headline">News</h4>
+		<div class="sub-content">
+			Keine News vorhanden.
+		</div>
+		<hr>
+		<h4 class="text-muted text-uppercase conent_headline">Kontakt</h4>
+		<div class="sub-content">
+			Bei möglichen Fehlern oder sonstigen Fragen, bitte per E-Mail an <a href="mailto:openfire@peuster.de">openfire@peuster.de</a> wenden. Die SMS Alarmierung ersetzt keineswegs die offizielle Alarmierung per FME oder Sirene. Fehlarlarme sind nicht ausgeschlossen.
+		</div>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-4">
+			<h4 class="text-muted text-uppercase conent_headline">Letzte Alarmierungen</h4>
+				<table class="table table-striped">
+					<tr>
+						<td>10.11.14 16:34</td>
+						<td><code>51372</code></td>
+						<td><a href=""><span class="glyphicon glyphicon-search"></span></a></td>
+					</tr>
+					<tr>
+						<td>09.11.14 04:33</td>
+						<td><code>51372</code></td>
+						<td><a href=""><span class="glyphicon glyphicon-search"></span></a></td>
+					</tr>
+					<tr>
+						<td>01.07.14 11:34</td>
+						<td><code>51399</code></td>
+						<td><a href=""><span class="glyphicon glyphicon-search"></span></a></td>
+					</tr>
+					<tr>
+						<td>10.05.14 13:34</td>
+						<td><code>51372</code></td>
+						<td><a href=""><span class="glyphicon glyphicon-search"></span></a></td>
+					</tr>
+				</table>
+		</div>
 	</div>
-	<div class="col-md-1"></div>
-	<div class="col-md-5">
-	<h4 class="text-muted text-uppercase">Letzte Alarmierungen</h4>
-	(right column)
-	</div>
-</div>
-{% endblock %}
+	{% endblock %}

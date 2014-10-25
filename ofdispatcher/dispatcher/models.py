@@ -27,12 +27,16 @@ class DepartmentManager(models.Model):
 
 class Contact(models.Model):
     department = models.ForeignKey(Department)
-    name = models.CharField(max_length=128)
+    firstname = models.CharField(max_length=128)
+    secondname = models.CharField(max_length=128)
     mail1 = models.EmailField(blank=True)
     mail2 = models.EmailField(blank=True)
     sms1 = models.IntegerField(default=0)
     sms2 = models.IntegerField(default=0)
     test = models.BooleanField(default=False)
+    error = models.BooleanField(default=False)
+    dev = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.name
@@ -42,6 +46,7 @@ class AlarmLoop(models.Model):
     department = models.ForeignKey(Department)
     contacts = models.ManyToManyField(Contact, blank=True)
     loop = models.CharField(max_length=5, default="00000")
+    name = models.CharField(max_length=128, default="Schleife", unique=True)
     alarm_text = models.CharField(max_length=140,
                                   default="Feuerwehr Alarmierung!")
     alarm_text_long = models.TextField(blank=True)

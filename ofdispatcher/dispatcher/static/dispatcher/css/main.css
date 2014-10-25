@@ -13,7 +13,10 @@ body {
 	margin: auto;
 } 
 
-.conent_headline
-{
-	padding-top:24px;
+.conent_headline{
+
+}
+
+.sub-content {
+	margin-left: 16px;
 }

@@ -2,12 +2,45 @@
 
 {% block title %}Schleifen{% endblock %}
 
-{% block sidebar %}
-<ul class="nav nav-stacked">
-	<li><a href="#">Schleifen</a></li>
-</ul>
-{% endblock %}
-
 {% block content %}
-Content.
+<div class="row">
+	<div class="col-md-7">
+		
+		<h4 class="text-muted text-uppercase conent_headline">51372<span class="label label-success pull-right">Aktiv</span></h4>
+		<div class="sub-content">
+			<form role="form">
+				<div class="form-group">
+					<label for="sms_from">Name</label>
+					<input type="text" class="form-control" placeholder="Nmae" value="Sirenenschleife Nieder-Werbe" disabled>
+				</div>
+				<div class="form-group">
+					<label for="sms_from">Alarm Text</label>
+					<input type="text" class="form-control" placeholder="Nmae" value="Feuerwehr Einsatz. Schleife ###." disabled>
+				</div>
+				<button type="submit" class="btn btn-sm btn-primary">Bearbeiten</button>
+				<button type="submit" class="btn btn-sm btn-primary disabled">Einsatzkräfte</button>
+				<button type="submit" class="btn btn-sm btn-danger disabled">Alarmieren</button>
+			</form>
+		</div>
+		<hr>
+		<h4 class="text-muted text-uppercase conent_headline">51399<span class="label label-danger pull-right">Inaktiv</span></h4>
+		<div class="sub-content">
+			<form role="form">
+				<div class="form-group">
+					<label for="sms_from">Name</label>
+					<input type="text" class="form-control" placeholder="Nmae" value="Sirenenschleife Nieder-Werbe" disabled>
+				</div>
+				<div class="form-group">
+					<label for="sms_from">Alarm Text</label>
+					<input type="text" class="form-control" placeholder="Nmae" value="Feuerwehr Einsatz. Schleife ###." disabled>
+				</div>
+				<button type="submit" class="btn btn-sm btn-primary">Bearbeiten</button>
+				<button type="submit" class="btn btn-sm btn-primary disabled">Einsatzkräfte</button>
+				<button type="submit" class="btn btn-sm btn-danger disabled">Alarmieren</button>
+			</form>
+		</div>
+		<hr>
+	
+	</div>
+</div>
 {% endblock %}

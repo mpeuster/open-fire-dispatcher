@@ -1,14 +1,79 @@
 {% extends "dispatcher/base.html" %}
 
-{% block title %}Kontakte{% endblock %}
+{% block title %}Einsatzkräfte{% endblock %}
 
-{% block sidebar %}
-<ul class="nav nav-stacked">
-	<li><a href="#">Kontakte</a></li>
-	<li><a href="#">Kontakt anlegen</a></li>
-</ul>
-{% endblock %}
 
 {% block content %}
-Content.
+<div class="row">
+	<div class="col-md-7">
+		
+		<div class="row sub-content">
+			<a type="button" class="btn btn-success pull-right" href="#">Neue Einsatzkraft anlegen &nbsp;<span class="glyphicon glyphicon-plus-sign"></a>
+			<br><br>
+		</div>
+		<div class="row sub-content">
+			<table  class="table table-striped">
+				<tr>
+					<th>Name</th>
+					<th>Vorname</th>
+					<th>Mail</th>
+					<th>Handynummer</th>
+					<th>
+					</th>
+				</tr>
+				<tr>
+					<td>Mustermann</td>
+					<td>Hans</td>
+					<td>h.muster@mail.com</td>
+					<td>01717725698</td>
+					<td align="right">
+						<a type="button" class="btn btn-xs btn-primary">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
+						<a type="button" class="btn btn-xs btn-danger">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>
+					</td>
+				</tr>
+				<tr>
+					<td>Mustermann</td>
+					<td>Hans</td>
+					<td>h.muster@mail.com</td>
+					<td>01717725698</td>
+					<td align="right">
+						<a type="button" class="btn btn-xs btn-primary">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
+						<a type="button" class="btn btn-xs btn-danger">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>
+					</td>
+				</tr>
+				<tr>
+					<td>Mustermann</td>
+					<td>Hans</td>
+					<td>h.muster@mail.com</td>
+					<td>01717725698</td>
+					<td align="right">
+						<a type="button" class="btn btn-xs btn-primary">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
+						<a type="button" class="btn btn-xs btn-danger">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>
+					</td>
+				</tr>
+				<tr>
+					<td>Mustermann</td>
+					<td>Hans</td>
+					<td>h.muster@mail.com</td>
+					<td>01717725698</td>
+					<td align="right">
+						<a type="button" class="btn btn-xs btn-primary">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
+						<a type="button" class="btn btn-xs btn-danger">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>
+					</td>
+				</tr>
+				<tr>
+					<td>Mustermann</td>
+					<td>Hans</td>
+					<td>h.muster@mail.com</td>
+					<td>01717725698</td>
+					<td align="right">
+						<a type="button" class="btn btn-xs btn-primary">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
+						<a type="button" class="btn btn-xs btn-danger">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	
+	</div>
+</div>
 {% endblock %}
