@@ -1,0 +1,22 @@
+{% extends "dispatcher/base.html" %}
+{% load bootstrap3 %}
+
+{% block title %}Einsatzkraft anlegen{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-7">
+		
+		<form action="{% url 'dispatcher:contacts_create' %}" method="post">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			{% buttons %}
+			<button type="submit" class="btn btn-success">
+				{% bootstrap_icon "plus-sign" %} Einsatzkraft Anlegen
+			</button>
+			{% endbuttons %}
+		</form>
+	
+	</div>
+</div>
+{% endblock %}

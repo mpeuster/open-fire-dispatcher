@@ -33,13 +33,13 @@ class Contact(models.Model):
     mail2 = models.EmailField(blank=True)
     sms1 = models.IntegerField(default=0)
     sms2 = models.IntegerField(default=0)
-    test = models.BooleanField(default=False)
+    test = models.BooleanField(default=True)
     error = models.BooleanField(default=False)
     dev = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.name
+        return self.firstname
 
 
 class AlarmLoop(models.Model):
