@@ -60,15 +60,8 @@ def contact_create(request):
         # check data and process it
         if form.is_valid():
             # create new contact
-            c = Contact(
-                department=department,
-                firstname=form.cleaned_data["firstname"],
-                secondname=form.cleaned_data["secondname"],
-                mail1=form.cleaned_data["mail1"],
-                sms1=form.cleaned_data["sms1"],
-                test=form.cleaned_data["test"],
-                active=form.cleaned_data["active"]
-                )
+            c = form.save(commit=False)
+            c.department = department
             c.save()
             # assign contact to loop(s)
             for loop_id in form.cleaned_data["loops"]:
