@@ -1,8 +1,16 @@
 from django import forms
-from dispatcher.models import Contact
+from dispatcher.models import Contact, AlarmLoop
 
 
 class ContactForm(forms.ModelForm):
+
+    loops_choices = []
+    loops = forms.MultipleChoiceField(
+        required=True,
+        label="Schleifen",
+        help_text="Schleifen bei denen diese Einsatzkraft alarmiert werden soll (STRG fuer Mehrfachauswahl).",
+        choices=loops_choices)
+
     class Meta:
         model = Contact
         fields = (

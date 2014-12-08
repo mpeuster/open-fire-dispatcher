@@ -1,8 +1,7 @@
 import logging
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from dispatcher.models import AlarmLoop, Contact
 from dispatcher.forms import ContactForm
 
@@ -43,18 +42,44 @@ def contacts(request):
 
 @login_required
 def contact_create(request):
+    # get department of user
+    department = request.user.departmentmanager.department
+
+    # helper to dynamically add content to choice fields
+    def add_form_choices(form):
+        # get loops that are valid for a contact and add them to form
+        form.fields["loops"].choices = [
+            (l.id, l.loop) for l in AlarmLoop.objects.filter(
+                department=department)]
+
     if request.method == "POST":
         # POST request: process data
         # create form instance an add received data
         form = ContactForm(request.POST)
-        # check data
+        add_form_choices(form)
+        # check data and process it
         if form.is_valid():
-            # TODO: process data
+            # create new contact
+            c = Contact(
+                department=department,
+                firstname=form.cleaned_data["firstname"],
+                secondname=form.cleaned_data["secondname"],
+                mail1=form.cleaned_data["mail1"],
+                sms1=form.cleaned_data["sms1"],
+                test=form.cleaned_data["test"],
+                active=form.cleaned_data["active"]
+                )
+            c.save()
+            # assign contact to loop(s)
+            for loop_id in form.cleaned_data["loops"]:
+                al = AlarmLoop.objects.get(id=int(loop_id))
+                al.contacts.add(c)
             # redirect to new view
-            return HttpResponseRedirect(reverse("dispatcher:contacts"))
+            return redirect("dispatcher:contacts")
     else:
         # GET request: return empty form
         form = ContactForm()
+        add_form_choices(form)
     context = {"form": form}
     return render(request, "dispatcher/contact_create.html", context)
 
