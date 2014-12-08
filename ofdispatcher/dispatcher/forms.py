@@ -37,3 +37,9 @@ class ContactForm(forms.ModelForm):
             "active": "Alarmierungen werden nur an als 'Aktiviert' markierte Einsatzkraefte versendet",
             "test": "Die monatliche Testalarmierungen an diese Einsatzkraft versenden.",
         }
+
+    def update_loop_choices(self, department):
+        # get loops that are valid for a contact and add them to form
+        self.fields["loops"].choices = [
+            (l.id, l.loop) for l in AlarmLoop.objects.filter(
+                department=department)]

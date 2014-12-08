@@ -45,18 +45,11 @@ def contact_create(request):
     # get department of user
     department = request.user.departmentmanager.department
 
-    # helper to dynamically add content to choice fields
-    def add_form_choices(form):
-        # get loops that are valid for a contact and add them to form
-        form.fields["loops"].choices = [
-            (l.id, l.loop) for l in AlarmLoop.objects.filter(
-                department=department)]
-
     if request.method == "POST":
         # POST request: process data
         # create form instance an add received data
         form = ContactForm(request.POST)
-        add_form_choices(form)
+        form.update_loop_choices(department)
         # check data and process it
         if form.is_valid():
             # create new contact
@@ -72,7 +65,7 @@ def contact_create(request):
     else:
         # GET request: return empty form
         form = ContactForm()
-        add_form_choices(form)
+        form.update_loop_choices(department)
     context = {"form": form}
     return render(request, "dispatcher/contact_create.html", context)
 
