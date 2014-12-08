@@ -79,7 +79,9 @@ def contact_create(request):
 
 @login_required
 def contact_update(request, id):
-    context = {"action": str(id) + "/update"}
+    c = Contact.objects.get(id=id)
+    form = ContactForm(instance=c)
+    context = {"contact": c, "form": form}
     return render(request, "dispatcher/contact_update.html", context)
 
 

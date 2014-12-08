@@ -1,4 +1,5 @@
 {% extends "dispatcher/base.html" %}
+{% load bootstrap3 %}
 
 {% block title %}Einsatzkraft bearbeiten{% endblock %}
 
@@ -7,7 +8,18 @@
 <div class="row">
 	<div class="col-md-7">
 		
-		Contact Detail
+		<form action="{% url 'dispatcher:contacts_update' contact.id %}" method="post">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			{% buttons %}
+			<button type="submit" class="btn btn-success">
+				{% bootstrap_icon "plus-sign" %} Änderungen speichern
+			</button>
+			<a type="button" class="btn btn-danger" href="{% url 'dispatcher:contacts_delete' contact.id %}">
+				{% bootstrap_icon "remove-sign" %} Einsatzkraft löschen
+			</a>
+			{% endbuttons %}
+		</form>
 	
 	</div>
 </div>
