@@ -38,8 +38,13 @@ class ContactForm(forms.ModelForm):
             "test": "Die monatliche Testalarmierungen an diese Einsatzkraft versenden.",
         }
 
-    def update_loop_choices(self, department):
+    def update_loop_choices(self, department, contact=None):
         # get loops that are valid for a contact and add them to form
         self.fields["loops"].choices = [
             (l.id, l.loop) for l in AlarmLoop.objects.filter(
                 department=department)]
+        # set pre selected items for contact
+        if contact is not None:
+            selected = [
+                l.id for l in AlarmLoop.objects.filter(contacts=contact)]
+            self.fields["loops"].initial = selected

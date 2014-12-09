@@ -39,7 +39,21 @@ class Contact(models.Model):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.firstname
+        return self.firstname + " " + self.secondname
+
+    def update_alarmloop_assignment(self, loops):
+        """
+        Add this user to all AlarmLoops which are specified
+        in the loops list. The list has to contain
+        AlarmLoop ids.
+        """
+        # remove this contact from all loops
+        for al in AlarmLoop.objects.all():
+            al.contacts.remove(self)
+        # re-assign contact to loop(s) specified in list
+        for loop_id in loops:
+            al = AlarmLoop.objects.get(id=int(loop_id))
+            al.contacts.add(self)
 
 
 class AlarmLoop(models.Model):

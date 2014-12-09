@@ -1,7 +1,8 @@
 import logging
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from dispatcher.models import AlarmLoop, Contact
 from dispatcher.forms import ContactForm
 
@@ -56,11 +57,8 @@ def contact_create(request):
             c = form.save(commit=False)
             c.department = department
             c.save()
-            # assign contact to loop(s)
-            for loop_id in form.cleaned_data["loops"]:
-                al = AlarmLoop.objects.get(id=int(loop_id))
-                al.contacts.add(c)
-            # redirect to new view
+            c.update_alarmloop_assignment(form.cleaned_data["loops"])
+            # redirect to list view
             return redirect("dispatcher:contacts")
     else:
         # GET request: return empty form
@@ -72,8 +70,26 @@ def contact_create(request):
 
 @login_required
 def contact_update(request, id):
-    c = Contact.objects.get(id=id)
-    form = ContactForm(instance=c)
+    # get department of user
+    department = request.user.departmentmanager.department
+    # get Contact from model that should be updated
+    c = get_object_or_404(Contact, id=id)
+
+    if request.method == "POST":
+        # POST request: process data
+        # create form instance an add received data
+        form = ContactForm(request.POST, instance=c)
+        form.update_loop_choices(department)
+        # check data and process it
+        if form.is_valid():
+            form.save()
+            c.update_alarmloop_assignment(form.cleaned_data["loops"])
+            # redirect to list view
+            return redirect("dispatcher:contacts")
+    else:
+        # GET request: return initial form
+        form = ContactForm(instance=c)
+        form.update_loop_choices(department, c)
     context = {"contact": c, "form": form}
     return render(request, "dispatcher/contact_update.html", context)
 
