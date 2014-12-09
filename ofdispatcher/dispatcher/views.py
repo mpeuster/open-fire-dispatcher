@@ -70,10 +70,10 @@ def contact_create(request):
 
 @login_required
 def contact_update(request, id):
-    # get department of user
+    # get department of user to ensure that he is allowed to access contact
     department = request.user.departmentmanager.department
     # get Contact from model that should be updated
-    c = get_object_or_404(Contact, id=id)
+    c = get_object_or_404(Contact, id=id, department=department)
 
     if request.method == "POST":
         # POST request: process data
@@ -96,4 +96,11 @@ def contact_update(request, id):
 
 @login_required
 def contact_delete(request, id):
-    pass
+    # get department of user to ensure that he is allowed to access contact
+    department = request.user.departmentmanager.department
+    # get Contact from model that should be updated
+    c = get_object_or_404(Contact, id=id, department=department)
+    # delete contact
+    c.delete()
+    # redirect to list view
+    return redirect("dispatcher:contacts")
