@@ -1,10 +1,15 @@
+import logging
 from django.db import models
 from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 
+logger = logging.getLogger(__name__)
+
 
 class Department(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=128)
     name2 = models.CharField(max_length=128, blank=True)
     sms_gateway_driver = models.IntegerField(default=0)
@@ -18,6 +23,8 @@ class Department(models.Model):
 
 
 class DepartmentManager(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     user = models.OneToOneField(User)
     department = models.ForeignKey(Department)
 
@@ -26,6 +33,8 @@ class DepartmentManager(models.Model):
 
 
 class Contact(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     department = models.ForeignKey(Department)
     firstname = models.CharField(max_length=128)
     secondname = models.CharField(max_length=128)
@@ -39,7 +48,7 @@ class Contact(models.Model):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return self.firstname + " " + self.secondname
+        return "%s, %s" % (self.secondname, self.firstname)
 
     def update_alarmloop_assignment(self, loops):
         """
@@ -54,9 +63,12 @@ class Contact(models.Model):
         for loop_id in loops:
             al = AlarmLoop.objects.get(id=int(loop_id))
             al.contacts.add(self)
+            logger.info("Contact %s assigned to loop: %s", self, al.loop)
 
 
 class AlarmLoop(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     department = models.ForeignKey(Department)
     contacts = models.ManyToManyField(Contact, blank=True)
     loop = models.CharField(max_length=5, default="00000")
@@ -65,12 +77,21 @@ class AlarmLoop(models.Model):
                                   default="Feuerwehr Alarmierung!")
     alarm_text_long = models.TextField(blank=True)
     active = models.BooleanField(default=True)
+    # definition of test alarm times for this loop
+    test_alarm_day = models.IntegerField(default=5)  # Mo=0,...
+    test_alarm_date_min = models.IntegerField(default=1)  # e.g. 1
+    test_alarm_date_max = models.IntegerField(default=7)  # e.g. 7
+    test_alarm_hour = models.IntegerField(default=12)  # start hour
+    test_alarm_minute = models.IntegerField(default=10)  # start minute
+    test_alarm_period = models.IntegerField(default=30)  # test period
 
     def __unicode__(self):
         return self.loop
 
 
 class Alarm(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     loop = models.ForeignKey(AlarmLoop)
     alarm_time = models.DateTimeField(auto_now_add=True)
     alarm_message = models.TextField(blank=False)

@@ -62,6 +62,7 @@ def contact_create(request):
             c.department = department
             c.save()
             c.update_alarmloop_assignment(form.cleaned_data["loops"])
+            logger.info("%s created contact: %s", request.user, c)
             # redirect to list view
             return redirect("dispatcher:contacts")
     else:
@@ -88,6 +89,7 @@ def contact_update(request, id):
         if form.is_valid():
             form.save()
             c.update_alarmloop_assignment(form.cleaned_data["loops"])
+            logger.info("%s updated contact: %s", request.user, c)
             # redirect to list view
             return redirect("dispatcher:contacts")
     else:
@@ -110,6 +112,7 @@ def contact_delete(request, id):
         if "ok" in request.POST:
             # delete contact
             c.delete()
+            logger.info("%s deleted contact: %s", request.user, c)
         # redirect to list view
         return redirect("dispatcher:contacts")
     else:
