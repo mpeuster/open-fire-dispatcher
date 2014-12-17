@@ -8,7 +8,7 @@
 	<div class="col-md-7">
 		
 		<div class="row sub-content">
-			<a type="button" class="btn btn-success pull-right" href="{% url 'dispatcher:contacts_create' %}">Neue Einsatzkraft anlegen &nbsp;<span class="glyphicon glyphicon-plus-sign"></a>
+			<a type="button" class="btn btn-primary pull-right" href="{% url 'dispatcher:contacts_create' %}">Neue Einsatzkraft anlegen &nbsp;<span class="glyphicon glyphicon-plus-sign"></a>
 			<br><br>
 		</div>
 		<div class="row sub-content">
@@ -16,8 +16,8 @@
 				<tr>
 					<th>Name</th>
 					<th>Vorname</th>
-					<th>Mail</th>
-					<th>Handynummer</th>
+					<th>Schleife(n)</th>
+					<th class="text-center">Status</th>
 					<th>
 					</th>
 				</tr>
@@ -25,11 +25,21 @@
 				<tr>
 					<td>{{ contact.secondname }}</td>
 					<td>{{ contact.firstname }}</td>
-					<td>{{ contact.mail1 }}</td>
-					<td>{{ contact.sms1 }}</td>
+					<td>
+					{% for loop in contact.loops %}
+						<code>{{ loop.loop }}</code>  
+					{% endfor %}
+					</td>
+					<td class="text-center">
+						{% if contact.active %}
+						<span class="label label-success">Aktiv</span>
+						{% else %}
+						<span class="label label-danger">Inaktiv</span>
+						{% endif %}
+					</td>
 					<td align="right">
-						<a type="button" class="btn btn-xs btn-primary" href="{% url 'dispatcher:contacts_update' contact.id %}">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
-						<a type="button" class="btn btn-xs btn-danger" href="{% url 'dispatcher:contacts_delete' contact.id %}">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>
+						<a type="button" class="btn btn-xs btn-default" href="{% url 'dispatcher:contacts_update' contact.id %}">Bearbeiten &nbsp;<span class="glyphicon glyphicon-edit"></a>
+						<!--<a type="button" class="btn btn-xs btn-danger" href="{% url 'dispatcher:contacts_delete' contact.id %}">Entfernen &nbsp;<span class="glyphicon glyphicon-remove"></a>-->
 					</td>
 				</tr>
 				{% endfor %}

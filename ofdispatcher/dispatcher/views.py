@@ -37,6 +37,10 @@ def loops(request):
 def contacts(request):
     department = request.user.departmentmanager.department
     contact_list = Contact.objects.filter(department=department)
+    # add loops to returned contacts
+    for c in contact_list:
+        c.loops = AlarmLoop.objects.filter(contacts=c)
+    # return list and render view
     context = {"contacts": contact_list}
     return render(request, "dispatcher/contacts.html", context)
 

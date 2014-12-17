@@ -15,9 +15,12 @@
 			{% csrf_token %}
 			{% bootstrap_form form %}
 			{% buttons %}
-			<button type="submit" class="btn btn-success">
+			<button type="submit" class="btn btn-primary">
 				{% bootstrap_icon "plus-sign" %} Änderungen speichern
 			</button>
+			<a type="button" class="btn btn-default" href="{% url 'dispatcher:contacts' %}">
+				Änderungen verwerfen
+			</a>
 			<a type="button" class="btn btn-danger" href="{% url 'dispatcher:contacts_delete' contact.id %}">
 				{% bootstrap_icon "remove-sign" %} Einsatzkraft löschen
 			</a>
