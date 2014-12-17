@@ -104,7 +104,18 @@ def contact_delete(request, id):
     department = request.user.departmentmanager.department
     # get Contact from model that should be updated
     c = get_object_or_404(Contact, id=id, department=department)
-    # delete contact
-    c.delete()
-    # redirect to list view
-    return redirect("dispatcher:contacts")
+
+    if request.method == "POST":
+        # perform action for dialog result
+        if "ok" in request.POST:
+            # delete contact
+            c.delete()
+        # redirect to list view
+        return redirect("dispatcher:contacts")
+    else:
+        # show confirmation dialog
+        action = reverse("dispatcher:contacts_delete", kwargs={"id": c.id})
+        message = "Einsatzkraft: %s %s loeschen?" % (c.firstname, c.secondname)
+        buttons = {"ok": "Ja", "cancel": "Nein"}
+        context = {"action": action, "message": message, "buttons": buttons}
+        return render(request, "dispatcher/generic_yes_no.html", context)

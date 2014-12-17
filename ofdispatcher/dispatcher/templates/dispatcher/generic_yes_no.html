@@ -1,0 +1,20 @@
+{% extends "dispatcher/base.html" %}
+{% load bootstrap3 %}
+
+{% block title %}{{ message }}{% endblock %}
+
+
+{% block content %}
+<div class="row">
+	<div class="text-center">
+		<form action="{{ action }}" method="post">
+			{% csrf_token %}
+			{% buttons %}
+			<button type="submit" class="btn btn-primary" name="ok">{% bootstrap_icon "ok" %} {{ buttons.ok }}</button> 
+			<button type="submit" class="btn btn-primary" name ="cancel">{% bootstrap_icon "remove" %} {{ buttons.cancel }}</button> 
+			{% endbuttons %}
+		</form>
+	
+	</div>
+</div>
+{% endblock %}
