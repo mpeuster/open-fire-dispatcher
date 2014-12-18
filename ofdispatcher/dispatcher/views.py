@@ -12,25 +12,25 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def overview(request):
-    return render(request, "dispatcher/overview.html", None)
+    return render(request, 'dispatcher/overview.html', None)
 
 
 @login_required
 def alarms(request):
-    return render(request, "dispatcher/alarms.html", None)
+    return render(request, 'dispatcher/alarms.html', None)
 
 
 @login_required
 def department(request):
-    return render(request, "dispatcher/department.html", None)
+    return render(request, 'dispatcher/department.html', None)
 
 
 @login_required
 def loops(request):
     department = request.user.departmentmanager.department
     alarm_loop_list = AlarmLoop.objects.filter(department=department)
-    context = {"alarm_loops": alarm_loop_list}
-    return render(request, "dispatcher/loops.html", context)
+    context = {'alarm_loops': alarm_loop_list}
+    return render(request, 'dispatcher/loops.html', context)
 
 
 @login_required
@@ -41,8 +41,8 @@ def contacts(request):
     for c in contact_list:
         c.loops = AlarmLoop.objects.filter(contacts=c)
     # return list and render view
-    context = {"contacts": contact_list}
-    return render(request, "dispatcher/contacts.html", context)
+    context = {'contacts': contact_list}
+    return render(request, 'dispatcher/contacts.html', context)
 
 
 @login_required
@@ -50,7 +50,7 @@ def contact_create(request):
     # get department of user
     department = request.user.departmentmanager.department
 
-    if request.method == "POST":
+    if request.method == 'POST':
         # POST request: process data
         # create form instance an add received data
         form = ContactForm(request.POST)
@@ -61,16 +61,16 @@ def contact_create(request):
             c = form.save(commit=False)
             c.department = department
             c.save()
-            c.update_alarmloop_assignment(form.cleaned_data["loops"])
-            logger.info("%s created contact: %s", request.user, c)
+            logger.info('%s created contact: %s', request.user, c)
+            c.update_alarmloop_assignment(form.cleaned_data['loops'])
             # redirect to list view
-            return redirect("dispatcher:contacts")
+            return redirect('dispatcher:contacts')
     else:
         # GET request: return empty form
         form = ContactForm()
         form.update_loop_choices(department)
-    context = {"form": form}
-    return render(request, "dispatcher/contact_create.html", context)
+    context = {'form': form}
+    return render(request, 'dispatcher/contact_create.html', context)
 
 
 @login_required
@@ -80,7 +80,7 @@ def contact_update(request, id):
     # get Contact from model that should be updated
     c = get_object_or_404(Contact, id=id, department=department)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         # POST request: process data
         # create form instance an add received data
         form = ContactForm(request.POST, instance=c)
@@ -88,16 +88,16 @@ def contact_update(request, id):
         # check data and process it
         if form.is_valid():
             form.save()
-            c.update_alarmloop_assignment(form.cleaned_data["loops"])
-            logger.info("%s updated contact: %s", request.user, c)
+            logger.info('%s updated contact: %s', request.user, c)
+            c.update_alarmloop_assignment(form.cleaned_data['loops'])
             # redirect to list view
-            return redirect("dispatcher:contacts")
+            return redirect('dispatcher:contacts')
     else:
         # GET request: return initial form
         form = ContactForm(instance=c)
         form.update_loop_choices(department, c)
-    context = {"contact": c, "form": form}
-    return render(request, "dispatcher/contact_update.html", context)
+    context = {'contact': c, 'form': form}
+    return render(request, 'dispatcher/contact_update.html', context)
 
 
 @login_required
@@ -107,18 +107,18 @@ def contact_delete(request, id):
     # get Contact from model that should be updated
     c = get_object_or_404(Contact, id=id, department=department)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         # perform action for dialog result
-        if "ok" in request.POST:
+        if 'ok' in request.POST:
             # delete contact
             c.delete()
-            logger.info("%s deleted contact: %s", request.user, c)
+            logger.info('%s deleted contact: %s', request.user, c)
         # redirect to list view
-        return redirect("dispatcher:contacts")
+        return redirect('dispatcher:contacts')
     else:
         # show confirmation dialog
-        action = reverse("dispatcher:contacts_delete", kwargs={"id": c.id})
-        message = "Einsatzkraft: %s %s loeschen?" % (c.firstname, c.secondname)
-        buttons = {"ok": "Ja", "cancel": "Nein"}
-        context = {"action": action, "message": message, "buttons": buttons}
-        return render(request, "dispatcher/generic_yes_no.html", context)
+        action = reverse('dispatcher:contacts_delete', kwargs={'id': c.id})
+        message = 'Einsatzkraft: %s %s loeschen?' % (c.firstname, c.secondname)
+        buttons = {'ok': 'Ja', 'cancel': 'Nein'}
+        context = {'action': action, 'message': message, 'buttons': buttons}
+        return render(request, 'dispatcher/generic_yes_no.html', context)

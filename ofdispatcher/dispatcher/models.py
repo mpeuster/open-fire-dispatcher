@@ -29,7 +29,7 @@ class DepartmentManager(models.Model):
     department = models.ForeignKey(Department)
 
     def __unicode__(self):
-        return str(self.user)
+        return '%s-%s' % (str(self.user), str(self.department))
 
 
 class Contact(models.Model):
@@ -48,22 +48,32 @@ class Contact(models.Model):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return "%s, %s" % (self.secondname, self.firstname)
+        return '%s, %s' % (self.secondname, self.firstname)
 
     def update_alarmloop_assignment(self, loops):
-        """
+        '''
         Add this user to all AlarmLoops which are specified
         in the loops list. The list has to contain
         AlarmLoop ids.
-        """
+        '''
         # remove this contact from all loops
         for al in AlarmLoop.objects.all():
             al.contacts.remove(self)
         # re-assign contact to loop(s) specified in list
+        loop_list = []
         for loop_id in loops:
             al = AlarmLoop.objects.get(id=int(loop_id))
+            loop_list.append(al)
             al.contacts.add(self)
-            logger.info("Contact %s assigned to loop: %s", self, al.loop)
+        logger.info('Contact %s assigned to loops: %s', self, loop_list)
+        return loop_list
+
+    def get_alarmloop_assignment(self):
+        '''
+        Returns list of AlarmLoops that to which this contact
+        is currently assigned.
+        '''
+        return [l for l in AlarmLoop.objects.filter(contacts=self)]
 
 
 class AlarmLoop(models.Model):
@@ -71,10 +81,10 @@ class AlarmLoop(models.Model):
     updated = models.DateTimeField(auto_now=True)
     department = models.ForeignKey(Department)
     contacts = models.ManyToManyField(Contact, blank=True)
-    loop = models.CharField(max_length=5, default="00000")
-    name = models.CharField(max_length=128, default="Schleife")
+    loop = models.CharField(max_length=5, default='00000')
+    name = models.CharField(max_length=128, default='Schleife')
     alarm_text = models.CharField(max_length=140,
-                                  default="Feuerwehr Alarmierung!")
+                                  default='Feuerwehr Alarmierung!')
     alarm_text_long = models.TextField(blank=True)
     active = models.BooleanField(default=True)
     # definition of test alarm times for this loop
@@ -93,8 +103,10 @@ class Alarm(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     loop = models.ForeignKey(AlarmLoop)
-    alarm_time = models.DateTimeField(auto_now_add=True)
-    alarm_message = models.TextField(blank=False)
+    message = models.TextField(blank=False)
+    log = models.TextField(blank=True)
+    type = models.IntegerField(default=0)
+    comment = models.TextField(blank=True)
 
     def __unicode__(self):
-        return "Alarm (%s)" % str(self.alarm_time)
+        return 'Alarm (%s)' % str(self.created)
