@@ -14,6 +14,10 @@
 		<form action="{% url 'dispatcher:contacts_update' contact.id %}" method="post">
 			{% csrf_token %}
 			{% bootstrap_form form %}
+
+			<p><small>Erstellt am {{ contact.created|date:"d.m.Y" }} um {{ contact.created|date:"H:i:s" }} Uhr</small></p>
+			<p><small>Geändert am {{ contact.updated|date:"d.m.Y" }} um {{ contact.updated|date:"H:i:s" }} Uhr</small></p>
+
 			{% buttons %}
 			<button type="submit" class="btn btn-primary">
 				{% bootstrap_icon "plus-sign" %} Änderungen speichern

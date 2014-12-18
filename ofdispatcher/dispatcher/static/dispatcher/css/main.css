@@ -5,7 +5,11 @@
 body {
 	margin: 16px;
 	height: 100%;
+}
 
+#main-div {
+	max-width: 980px;
+	margin: auto;	
 }
 
 .login {
@@ -19,4 +23,6 @@ body {
 
 .sub-content {
 	margin-left: 16px;
+	margin-right: 16px;
 }
+
